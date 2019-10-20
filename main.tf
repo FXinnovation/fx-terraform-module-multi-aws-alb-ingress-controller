@@ -3,7 +3,7 @@
 #####
 
 resource "aws_iam_policy" "this" {
-  count = var.enabeld ? 1 : 0
+  count = var.enabled ? 1 : 0
 
   name        = var.iam_policy_name
   path        = var.iam_policy_path
@@ -13,10 +13,10 @@ resource "aws_iam_policy" "this" {
 }
 
 resource "aws_iam_role_policy_attachment" "this" {
-  count = var.enabeld ? 1 : 0
+  count = var.enabled ? 1 : 0
 
   policy_arn = aws_iam_policy.this.arn
-  role       = var.eks_worker_role
+  role       = var.eks_worker_role_arn
 }
 
 #####
@@ -45,7 +45,7 @@ resource "kubernetes_config_map" "this" {
 
   data = {
     mapRoles = <<EOF
-- rolearn: ${aws_iam_role.worker.arn}
+- rolearn: ${var.eks_worker_role_arn}
   username: system:node:{{EC2PrivateDNSName}}
   groups:
     - system:bootstrappers
@@ -217,6 +217,4 @@ resource "kubernetes_deployment" "this" {
       }
     }
   }
-
-
 }
