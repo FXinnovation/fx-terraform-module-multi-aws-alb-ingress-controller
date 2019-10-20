@@ -31,4 +31,18 @@ Terraform module that deploy the ALB Ingress Controller on Kubernetes
 | service\_account\_labels | Map of labels that will be added to the service account. | map | `{}` | no |
 | service\_account\_name | Name of the service account that will be created. | string | `"aws-alb-ingress-controller"` | no |
 
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| cluster\_role\_binding\_name | Name of the cluster role binding. |
+| cluster\_role\_name | Name of the cluster role. |
+| config\_map\_name | Name of the config map. |
+| deployment\_name | Name of the deployment. |
+| iam\_policy\_arn | ARN of the IAM policy created. |
+| iam\_policy\_id | ID of the IAM policy created. |
+| iam\_policy\_name | Name of the IAM policy created. |
+| iam\_policy\_path | Path of the IAM policy created. |
+| service\_account\_name | Name of the service account. |
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

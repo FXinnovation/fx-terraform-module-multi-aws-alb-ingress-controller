@@ -1,4 +1,36 @@
 #####
+# Datasources
+#####
+
+data "aws_region" "this" {}
+
+#####
+# Locals
+#####
+
+locals {
+  labels = {
+    "app.kubernetes.io/name"       = "aws-alb-ingress-controller"
+    "app.kubernetes.io/version"    = var.image_version
+    "app.kubernetes.io/component"  = "ingress-controller"
+    "app.kubernetes.io/part-of"    = "kubernetes"
+    "app.kubernetes.io/managed-by" = "terraform"
+  }
+}
+
+#####
+# Randoms
+#####
+
+resource "random_string" "selector" {
+  count = var.enabled ? 1 : 0
+
+  special = false
+  upper   = false
+  length  = 20
+}
+
+#####
 # AWS IAM
 #####
 
@@ -15,7 +47,7 @@ resource "aws_iam_policy" "this" {
 resource "aws_iam_role_policy_attachment" "this" {
   count = var.enabled ? 1 : 0
 
-  policy_arn = aws_iam_policy.this.arn
+  policy_arn = element(concat(aws_iam_policy.this.*.arn, list("")), 0)
   role       = var.eks_worker_role_arn
 }
 
@@ -60,6 +92,7 @@ EOF
 
 resource "kubernetes_service_account" "this" {
   count = var.enabled ? 1 : 0
+
   metadata {
     name      = var.service_account_name
     namesapce = var.namespace
@@ -172,7 +205,7 @@ resource "kubernetes_deployment" "this" {
     selector {
       match_labels = {
         app    = "aws-alb-ingress-controller"
-        random = random_string.selector.result
+        random = element(concat(random_string.selector.*.result, list("")), 0)
       }
     }
 
@@ -194,7 +227,7 @@ resource "kubernetes_deployment" "this" {
           {
             "app.kubernetes.io/instance" = var.deployment_name
             app                          = "aws-alb-ingress-controller"
-            random                       = random_string.selector.result
+            random                       = element(concat(random_string.selector.*.result, list("")), 0)
           },
           local.labels,
           var.labels,
@@ -204,7 +237,7 @@ resource "kubernetes_deployment" "this" {
 
       spec {
         container {
-          args              = ["--ingress-class=alb", "--cluster-name=${var.name}", "--aws-region=${var.region}"]
+          args              = ["--ingress-class=alb", "--cluster-name=${var.name}", "--aws-region=${data.aws_region.this.name}"]
           image             = "docker.io/amazon/aws-alb-ingress-controller:${var.image_version}"
           name              = "aws-alb-ingress-controller"
           image_pull_policy = "Always"
