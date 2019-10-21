@@ -110,5 +110,5 @@ variable "deployment_labels" {
 
 variable "image_version" {
   description = "Version of the image that will be used."
-  default     = "latest"
+  default     = "v1.1.3"
 }

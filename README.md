@@ -24,7 +24,7 @@ Terraform module that deploy the ALB Ingress Controller on Kubernetes
 | enabled | Wheter or not to enable the module. | string | `"true"` | no |
 | iam\_policy\_name | Name of the policy that will be created. | string | `"aws-alb-ingress-controller"` | no |
 | iam\_policy\_path | Path of the policy that will be created. | string | `"/"` | no |
-| image\_version | Version of the image that will be used. | string | `"latest"` | no |
+| image\_version | Version of the image that will be used. | string | `"v1.1.3"` | no |
 | labels | Map of labels that will be added to all kubernetes resources. | map | `{}` | no |
 | namespace | Namespace in which the AWS ALB Ingress Controller will be deployed. (It must be created.) | string | `"kube-system"` | no |
 | service\_account\_annotations | Map of annotations that will be added to the service account. | map | `{}` | no |
