@@ -53,10 +53,10 @@ module "eks_worker_pool" {
 module "alb_ingress_controller" {
   source = "../../"
 
-  iam_policy_name     = random_string.this.result
-  eks_worker_role_arn = module.eks_worker_pool.iam_role_arn
-  config_map_name     = random_string.this.result
-  service_accont_name = random_string.this.result
-  cluster_role_name   = random_string.this.result
-  deployment_name     = random_string.this.result
+  iam_policy_name      = random_string.this.result
+  eks_worker_role_arn  = module.eks_worker_pool.iam_role_arn
+  config_map_name      = random_string.this.result
+  service_account_name = random_string.this.result
+  cluster_role_name    = random_string.this.result
+  deployment_name      = random_string.this.result
 }
