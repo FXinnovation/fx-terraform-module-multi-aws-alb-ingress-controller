@@ -95,7 +95,7 @@ resource "kubernetes_service_account" "this" {
 
   metadata {
     name      = var.service_account_name
-    namesapce = var.namespace
+    namespace = var.namespace
     annotations = merge(
       var.annotations,
       var.service_account_annotations
