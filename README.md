@@ -16,7 +16,7 @@ Terraform module that deploy the ALB Ingress Controller on Kubernetes
 | cluster\_role\_name | Name of the cluster role that will be created. | string | `"aws-alb-ingress-controller"` | no |
 | config\_map\_annotations | Map of annotations that will be added to the config map. | map | `{}` | no |
 | config\_map\_labels | Map of labels that will be added to the config map. | map | `{}` | no |
-| config\_map\_name | Name of the config_map that will be created. | string | n/a | yes |
+| config\_map\_name | Name of the config_map that will be created. | string | `"aws-alb-ingress-controller"` | no |
 | deployment\_annotations | Map of annotations that will be added on the deployment. | map | `{}` | no |
 | deployment\_labels | Map of labels that will be added on the deployment. | map | `{}` | no |
 | deployment\_name | Name of the deployment that will be created. | string | `"aws-alb-ingress-controller"` | no |

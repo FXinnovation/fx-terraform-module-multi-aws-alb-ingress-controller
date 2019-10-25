@@ -20,7 +20,7 @@ variable "eks_worker_role_arn" {
 
 variable "config_map_name" {
   description = "Name of the config_map that will be created."
-  value       = "aws-alb-ingress-controller"
+  default     = "aws-alb-ingress-controller"
 }
 
 variable "namespace" {
