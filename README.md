@@ -44,6 +44,7 @@ Terraform module that deploy the ALB Ingress Controller on Kubernetes
 | iam\_policy\_id | ID of the IAM policy created. |
 | iam\_policy\_name | Name of the IAM policy created. |
 | iam\_policy\_path | Path of the IAM policy created. |
+| namespace | Namespace in which the resources are deployed. |
 | service\_account\_name | Name of the service account. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

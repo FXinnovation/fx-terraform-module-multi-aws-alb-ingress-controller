@@ -42,3 +42,8 @@ output "deployment_name" {
   description = "Name of the deployment."
   value       = element(concat(kubernetes_deployment.this.*.metadata.0.name, list("")), 0)
 }
+
+output "namespace" {
+  description = "Namespace in which the resources are deployed."
+  value       = var.enabled ? var.namespace : ""
+}
