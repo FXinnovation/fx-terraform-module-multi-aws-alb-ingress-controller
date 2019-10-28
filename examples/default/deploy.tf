@@ -54,7 +54,7 @@ module "alb_ingress_controller" {
   source = "../../"
 
   iam_policy_name      = random_string.this.result
-  eks_worker_role_arn  = module.eks_worker_pool.iam_role_arn
+  eks_worker_role_name = module.eks_worker_pool.iam_role_name
   eks_cluster_name     = module.eks.name
   config_map_name      = random_string.this.result
   service_account_name = random_string.this.result

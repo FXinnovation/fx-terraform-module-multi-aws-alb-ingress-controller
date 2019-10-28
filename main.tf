@@ -48,7 +48,7 @@ resource "aws_iam_role_policy_attachment" "this" {
   count = var.enabled ? 1 : 0
 
   policy_arn = element(concat(aws_iam_policy.this.*.arn, list("")), 0)
-  role       = var.eks_worker_role_arn
+  role       = var.eks_worker_role_name
 }
 
 #####

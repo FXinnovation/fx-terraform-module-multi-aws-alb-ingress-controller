@@ -18,8 +18,8 @@ variable "eks_cluster_name" {
   type        = string
 }
 
-variable "eks_worker_role_arn" {
-  description = "ARN of the AWS IAM Role given to the EKS workers. (the needed policy will be attached to it.)"
+variable "eks_worker_role_name" {
+  description = "Name of the AWS IAM Role given to the EKS workers. (the needed policy will be attached to it.)"
   type        = string
 }
 
