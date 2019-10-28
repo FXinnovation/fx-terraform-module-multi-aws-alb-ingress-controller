@@ -21,6 +21,7 @@ Terraform module that deploy the ALB Ingress Controller on Kubernetes
 | deployment\_labels | Map of labels that will be added on the deployment. | map | `{}` | no |
 | deployment\_name | Name of the deployment that will be created. | string | `"aws-alb-ingress-controller"` | no |
 | eks\_cluster\_name | Name of the EKS cluster for which this load-balancer is depoyed. | string | n/a | yes |
+| eks\_worker\_role\_arn | ARN of the AWS IAM Role given to the EKS workers. (the needed policy will be attached to it.) | string | n/a | yes |
 | eks\_worker\_role\_name | Name of the AWS IAM Role given to the EKS workers. (the needed policy will be attached to it.) | string | n/a | yes |
 | enabled | Wheter or not to enable the module. | string | `"true"` | no |
 | iam\_policy\_name | Name of the policy that will be created. | string | `"aws-alb-ingress-controller"` | no |
