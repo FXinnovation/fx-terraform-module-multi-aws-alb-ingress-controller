@@ -27,7 +27,7 @@ module "eks" {
 #####
 
 module "eks_worker_pool" {
-  source = "git::ssh://git@scm.dazzlingwrench.fxinnovation.com:2222/fxinnovation-public/terraform-module-aws-eks-worker-pool.git?ref=hotfix/ALDO-620"
+  source = "git::ssh://git@scm.dazzlingwrench.fxinnovation.com:2222/fxinnovation-public/terraform-module-aws-eks-worker-pool.git?ref=0.1.1"
 
   autoscaling_group_name = random_string.this.result
 
