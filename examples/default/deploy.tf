@@ -14,12 +14,16 @@ resource "random_string" "this" {
 #####
 
 module "eks" {
-  source = "git::ssh://git@scm.dazzlingwrench.fxinnovation.com:2222/fxinnovation-public/terraform-module-aws-eks.git?ref=1.0.1"
+  source = "git::ssh://git@scm.dazzlingwrench.fxinnovation.com:2222/fxinnovation-public/terraform-module-aws-eks.git?ref=1.1.1"
 
   iam_role_name       = "eks${random_string.this.result}"
   name                = "eks${random_string.this.result}"
   security_group_name = "eks${random_string.this.result}"
   subnet_ids          = tolist(data.aws_subnet_ids.this.ids)
+  kubernetes_version  = "1.13"
+  private_access      = false
+
+  allowed_security_group_ids = [module.eks_worker_pool.security_group_id]
 }
 
 #####
@@ -27,17 +31,18 @@ module "eks" {
 #####
 
 module "eks_worker_pool" {
-  source = "git::ssh://git@scm.dazzlingwrench.fxinnovation.com:2222/fxinnovation-public/terraform-module-aws-eks-worker-pool.git?ref=0.1.1"
+  source = "git::ssh://git@scm.dazzlingwrench.fxinnovation.com:2222/fxinnovation-public/terraform-module-aws-eks-worker-pool.git?ref=1.0.0"
 
   autoscaling_group_name = random_string.this.result
 
-  cluster_certificate       = module.eks.certificate_authority
-  cluster_endpoint          = module.eks.endpoint
   cluster_name              = module.eks.name
   cluster_security_group_id = module.eks.security_group_id
 
+  kubernetes_version = module.eks.kubernetes_version
+
   iam_role_name             = "ekswp${random_string.this.result}"
   iam_instance_profile_name = "ekswp${random_string.this.result}"
+  key_name                  = "christophe.vkerchove"
 
   name_prefix = "ekswp${random_string.this.result}"
 
