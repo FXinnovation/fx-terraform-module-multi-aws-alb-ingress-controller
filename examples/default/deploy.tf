@@ -42,7 +42,6 @@ module "eks_worker_pool" {
 
   iam_role_name             = "ekswp${random_string.this.result}"
   iam_instance_profile_name = "ekswp${random_string.this.result}"
-  key_name                  = "christophe.vkerchove"
 
   name_prefix = "ekswp${random_string.this.result}"
 
