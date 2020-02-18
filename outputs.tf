@@ -47,3 +47,8 @@ output "namespace" {
   description = "Namespace in which the resources are deployed."
   value       = var.enabled ? var.namespace : ""
 }
+
+output "class_name" {
+  description = "Name of the ingress class name"
+  value = local.ingress_class_name
+}

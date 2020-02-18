@@ -16,6 +16,8 @@ locals {
     "app.kubernetes.io/part-of"    = "kubernetes"
     "app.kubernetes.io/managed-by" = "terraform"
   }
+
+  ingress_class_name = "alb"
 }
 
 #####
@@ -237,7 +239,7 @@ resource "kubernetes_deployment" "this" {
 
       spec {
         container {
-          args              = ["--ingress-class=alb", "--cluster-name=${var.eks_cluster_name}", "--aws-region=${data.aws_region.this.name}"]
+          args              = ["--ingress-class=${local.ingress_class_name}", "--cluster-name=${var.eks_cluster_name}", "--aws-region=${data.aws_region.this.name}"]
           image             = "docker.io/amazon/aws-alb-ingress-controller:${var.image_version}"
           name              = "aws-alb-ingress-controller"
           image_pull_policy = "Always"
@@ -250,4 +252,10 @@ resource "kubernetes_deployment" "this" {
       }
     }
   }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.this,
+    kubernetes_config_map.this,
+    kubernetes_cluster_role_binding.this
+  ]
 }
