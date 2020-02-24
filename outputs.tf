@@ -50,5 +50,5 @@ output "namespace" {
 
 output "class_name" {
   description = "Name of the ingress class name"
-  value = local.ingress_class_name
+  value       = local.ingress_class_name
 }
