@@ -43,7 +43,7 @@ resource "aws_iam_policy" "this" {
   path        = var.iam_policy_path
   description = "Allow ALB Ingress-Controller to interact with AWS LB's."
 
-  policy = file("${path.module}/templates/alb-ingress-controller-policy.json")
+  policy = file("${path.module}/files/alb-ingress-controller-policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "this" {

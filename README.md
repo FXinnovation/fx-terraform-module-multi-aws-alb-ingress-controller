@@ -3,6 +3,10 @@
 Terraform module that deploy the ALB Ingress Controller on Kubernetes
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
 ## Providers
 
 | Name | Version |
@@ -14,7 +18,7 @@ Terraform module that deploy the ALB Ingress Controller on Kubernetes
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | annotations | Map of annotations that will be added to all kubernetes resources. | `map` | `{}` | no |
 | cluster\_role\_annotations | Map of annotations that will be added the cluster role. | `map` | `{}` | no |
 | cluster\_role\_binding\_annotations | Map of annotations that will be added to the cluster role binding. | `map` | `{}` | no |
