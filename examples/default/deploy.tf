@@ -45,17 +45,16 @@ module "eks_worker_pool" {
   cluster_security_group_id = module.eks.security_group_id
 
   kubernetes_version = module.eks.kubernetes_version
-  
+
   iam_role_name             = "ekswp${random_string.this.result}"
   iam_instance_profile_name = "ekswp${random_string.this.result}"
- 
+
   name_prefix = "ekswp${random_string.this.result}"
 
   security_group_name = "ekswp${random_string.this.result}"
 
   subnet_ids = tolist(data.aws_subnet_ids.this.ids)
 }
-
 
 #####
 # ALB Ingress Controller
