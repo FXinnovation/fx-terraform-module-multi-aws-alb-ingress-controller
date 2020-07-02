@@ -14,7 +14,7 @@ resource "random_string" "this" {
 #####
 
 module "eks" {
-  source = "git::ssh://git@scm.dazzlingwrench.fxinnovation.com:2222/fxinnovation-public/terraform-module-aws-eks.git?ref=1.1.1"
+  source = "git::ssh://git@scm.dazzlingwrench.fxinnovation.com:2222/fxinnovation-public/terraform-module-aws-eks.git?ref=2.1.0"
 
   iam_role_name       = "eks${random_string.this.result}"
   name                = "eks${random_string.this.result}"
@@ -23,8 +23,9 @@ module "eks" {
   kubernetes_version  = "1.16"
   private_access      = false
 
-  allowed_security_group_ids = [module.eks_worker_pool.security_group_id]
-  allowed_cidrs              = ["0.0.0.0/0"]
+  allowed_security_group_count = 1
+  allowed_security_group_ids   = [module.eks_worker_pool.security_group_id]
+  allowed_cidrs                = ["0.0.0.0/0"]
 }
 
 #####
