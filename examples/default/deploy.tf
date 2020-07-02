@@ -24,6 +24,7 @@ module "eks" {
   private_access      = false
 
   allowed_security_group_ids = [module.eks_worker_pool.security_group_id]
+  allowed_cidrs              = ["0.0.0.0/0"]
 }
 
 #####
