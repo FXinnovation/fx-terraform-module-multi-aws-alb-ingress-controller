@@ -23,6 +23,8 @@ module "eks" {
   kubernetes_version  = "1.16"
   private_access      = false
 
+  aws_auth_configmap_data = module.eks_worker_pool.aws_auth_data
+
   allowed_security_group_count = 1
   allowed_security_group_ids   = [module.eks_worker_pool.security_group_id]
   allowed_cidrs                = ["0.0.0.0/0"]
@@ -33,24 +35,27 @@ module "eks" {
 #####
 
 module "eks_worker_pool" {
-  source = "git::ssh://git@scm.dazzlingwrench.fxinnovation.com:2222/fxinnovation-public/terraform-module-aws-eks-worker-pool.git?ref=1.0.0"
+  source = "git::https://scm.dazzlingwrench.fxinnovation.com/fxinnovation-public/terraform-module-aws-eks-worker-pool.git?ref=2.1.0"
 
   autoscaling_group_name = random_string.this.result
+
+  associate_public_ip_address = false
 
   cluster_name              = module.eks.name
   cluster_security_group_id = module.eks.security_group_id
 
   kubernetes_version = module.eks.kubernetes_version
-
+  
   iam_role_name             = "ekswp${random_string.this.result}"
   iam_instance_profile_name = "ekswp${random_string.this.result}"
-
+ 
   name_prefix = "ekswp${random_string.this.result}"
 
   security_group_name = "ekswp${random_string.this.result}"
 
   subnet_ids = tolist(data.aws_subnet_ids.this.ids)
 }
+
 
 #####
 # ALB Ingress Controller
