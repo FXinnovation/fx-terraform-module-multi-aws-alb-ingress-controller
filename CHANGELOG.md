@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## x.x.x (not yet released)
+
+* chore: bump pre-commit hooks
+
 ## 0.3.0
 
  * fix: IAM policy
