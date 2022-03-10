@@ -49,7 +49,7 @@ resource "aws_iam_policy" "this" {
 resource "aws_iam_role_policy_attachment" "this" {
   count = var.enabled ? 1 : 0
 
-  policy_arn = element(concat(aws_iam_policy.this.*.arn, list("")), 0)
+  policy_arn = element(concat(aws_iam_policy.this.*.arn, []), 0)
   role       = var.eks_worker_role_name
 }
 
@@ -167,12 +167,12 @@ resource "kubernetes_cluster_role_binding" "this" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = element(concat(kubernetes_cluster_role.this.*.metadata.0.name, list("")), 0)
+    name      = element(concat(kubernetes_cluster_role.this.*.metadata.0.name, []), 0)
   }
 
   subject {
     kind      = "ServiceAccount"
-    name      = element(concat(kubernetes_service_account.this.*.metadata.0.name, list("")), 0)
+    name      = element(concat(kubernetes_service_account.this.*.metadata.0.name, []), 0)
     namespace = var.namespace
   }
 }
@@ -207,7 +207,7 @@ resource "kubernetes_deployment" "this" {
     selector {
       match_labels = {
         app    = "aws-alb-ingress-controller"
-        random = element(concat(random_string.selector.*.result, list("")), 0)
+        random = element(concat(random_string.selector.*.result, []), 0)
       }
     }
 
@@ -229,7 +229,7 @@ resource "kubernetes_deployment" "this" {
           {
             "app.kubernetes.io/instance" = var.deployment_name
             app                          = "aws-alb-ingress-controller"
-            random                       = element(concat(random_string.selector.*.result, list("")), 0)
+            random                       = element(concat(random_string.selector.*.result, []), 0)
           },
           local.labels,
           var.labels,
@@ -247,7 +247,7 @@ resource "kubernetes_deployment" "this" {
           resources {}
 
         }
-        service_account_name            = element(concat(kubernetes_service_account.this.*.metadata.0.name, list("")), 0)
+        service_account_name            = element(concat(kubernetes_service_account.this.*.metadata.0.name, []), 0)
         automount_service_account_token = true
       }
     }
