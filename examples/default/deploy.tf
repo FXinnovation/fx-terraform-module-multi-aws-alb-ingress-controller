@@ -14,7 +14,7 @@ resource "random_string" "this" {
 #####
 
 module "eks" {
-  source = "git::ssh://git@github.com/FXinnovation/fx-terraform-module-aws-eks.git?ref=1.1.1"
+  source = "github.com/FXinnovation/fx-terraform-module-aws-eks.git?ref=1.1.1"
 
   iam_role_name       = "eks${random_string.this.result}"
   name                = "eks${random_string.this.result}"
@@ -31,7 +31,7 @@ module "eks" {
 #####
 
 module "eks_worker_pool" {
-  source = "git::ssh://git@github.com/FXinnovation/fx-terraform-module-aws-eks-worker-pool.git?ref=1.0.0"
+  source = "github.com/FXinnovation/fx-terraform-module-aws-eks-worker-pool.git?ref=1.0.0"
 
   autoscaling_group_name = random_string.this.result
 
