@@ -14,7 +14,7 @@ resource "random_string" "this" {
 #####
 
 module "eks" {
-  source = "git::ssh://git@github.com/FXinnovation/fx-terraform-module-aws-eks.git?ref=2.1.0"
+  source = "github.com/FXinnovation/fx-terraform-module-aws-eks.git?ref=2.1.0"
 
   iam_role_name       = "eks${random_string.this.result}"
   name                = "eks${random_string.this.result}"
