@@ -122,3 +122,8 @@ variable "image_version" {
   description = "Version of the image that will be used."
   default     = "v1.1.3"
 }
+
+variable "additional_alb_args" {
+  description = "List of additional arguments to send to the ingress controller."
+  default     = []
+}

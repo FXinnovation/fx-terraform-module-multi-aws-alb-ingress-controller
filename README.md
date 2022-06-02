@@ -2,6 +2,11 @@
 
 Terraform module that deploy the ALB Ingress Controller on Kubernetes
 
+IMPORTANT NOTE :
+
+this module is **deprecated** and not maintained anymore, we strongly advise you to use the official helm chart to install aws load balancer controller addon:
+https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -37,6 +42,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_additional_alb_args"></a> [additional\_alb\_args](#input\_additional\_alb\_args) | List of additional arguments to send to the ingress controller. | `list` | `[]` | no |
 | <a name="input_annotations"></a> [annotations](#input\_annotations) | Map of annotations that will be added to all kubernetes resources. | `map` | `{}` | no |
 | <a name="input_cluster_role_annotations"></a> [cluster\_role\_annotations](#input\_cluster\_role\_annotations) | Map of annotations that will be added the cluster role. | `map` | `{}` | no |
 | <a name="input_cluster_role_binding_annotations"></a> [cluster\_role\_binding\_annotations](#input\_cluster\_role\_binding\_annotations) | Map of annotations that will be added to the cluster role binding. | `map` | `{}` | no |
