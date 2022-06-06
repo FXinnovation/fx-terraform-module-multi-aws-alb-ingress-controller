@@ -239,7 +239,7 @@ resource "kubernetes_deployment" "this" {
 
       spec {
         container {
-          args              = ["--ingress-class=${local.ingress_class_name}", "--cluster-name=${var.eks_cluster_name}", "--aws-region=${data.aws_region.this.name}"]
+          args              = concat(["--ingress-class=${local.ingress_class_name}", "--cluster-name=${var.eks_cluster_name}", "--aws-region=${data.aws_region.this.name}"], var.additional_alb_args)
           image             = "docker.io/amazon/aws-alb-ingress-controller:${var.image_version}"
           name              = "aws-alb-ingress-controller"
           image_pull_policy = "Always"
